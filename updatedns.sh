@@ -11,6 +11,8 @@ my_ip=$(curl -s https://api.ipify.org)
 echo "My public IP address is: '$my_ip'"
 
 # Get my currently registered IP
+echo "--- GANDI_DOMAIN=$GANDI_DOMAIN"
+echo "--- record list=$(gandi record list -f json $GANDI_DOMAIN)"
 current_config=$(gandi record list -f json $GANDI_DOMAIN | jq '.[] | select(.name == "$GANDI_HOST")')
 echo "--- current_config=$current_config"
 echo "--- ttl=$(echo $current_config | jq '.ttl')"
