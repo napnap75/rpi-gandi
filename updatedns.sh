@@ -8,22 +8,16 @@ fi
 
 # Get my current IP
 my_ip=$(curl -s https://api.ipify.org)
-echo "My public IP address is: '$my_ip'"
 
 # Get my currently registered IP
-echo "--- GANDI_DOMAIN=$GANDI_DOMAIN"
-gandi record list -f json $GANDI_DOMAIN | jq '.[] | select(.name == "$GANDI_HOST")' > tmp_json
-echo "--- current_config="
-cat tmp_json
-echo "--- ttl=$(cat tmp_json | jq '.ttl')"
-echo "--- type=$(cat tmp_json | jq -r '.type')"
-current_ip=$(cat tmp_json | jq -r '.value')
-echo "The current registered IP address is: '$current_ip'"
+current_record=$(gandi record list -f json $GANDI_DOMAIN | jq -c '.[] | select(.name == "'$GANDI_HOST'")')
+current_ip=$(echo $current_record | jq -r '.value')
 
 # If they do not match, change it (and keep the TTL and TYPE)
 if [[ "$my_ip" != "$current_ip" ]]; then
-  host_string="$GANDI_HOST $(cat tmp_json | jq '.ttl') IN TYPE $(cat tmp_json | jq -r '.type')"
-echo "--- host_string=$host_string"
-  echo "Updating the record with: '$host_string $my_ip'"
-  gandi record update -r "$host_string $current_ip" --new-record "$host_string $my_ip"  $GANDI_DOMAIN 
+  echo "Updating $GANDI_HOST.$GANDI_DOMAIN record with IP $my_ip"
+  host_string="$GANDI_HOST $(echo $current_record | jq '.ttl') $(echo $current_record | jq -r '.type')"
+  gandi record update -r "$host_string $current_ip" --new-record "$host_string $my_ip" $GANDI_DOMAIN
+else
+  echo "Not updating $GANDI_HOST.$GANDI_DOMAIN record with IP $my_ip"
 fi
