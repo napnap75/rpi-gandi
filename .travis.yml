@@ -8,10 +8,8 @@ install:
 script:
   - docker build -t napnap75/rpi-gandi:latest .
   - docker images
-  - docker run --name test1 -e GANDI_API_KEY="$GANDI_API_KEY" -e GANDI_DOMAIN="$GANDI_DOMAIN" -e GANDI_HOST="$GANDI_HOST" napnap75/rpi-gandi:latest
-  - docker start test1
-  - docker rm test1
-
+  - docker run --rm -e GANDI_API_KEY="$GANDI_API_KEY" -e GANDI_DOMAIN="$GANDI_DOMAIN" -e GANDI_HOST="$GANDI_HOST" napnap75/rpi-gandi:latest
+  
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push napnap75/rpi-gandi:latest
