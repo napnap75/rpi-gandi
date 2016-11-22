@@ -8,6 +8,7 @@ install:
 script:
   - docker build -t napnap75/rpi-gandi:latest .
   - docker images
+  - docker run --rm napnap75/rpi-gandi:latest
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
