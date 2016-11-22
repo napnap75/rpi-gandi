@@ -1,7 +1,7 @@
 FROM napnap75/rpi-alpine-base:latest
 
 # Install dependencies
-RUN apk add py-pip \
+RUN apk add py-pip curl \
   && pip install --upgrade pip \
   && pip install gandi.cli
 
