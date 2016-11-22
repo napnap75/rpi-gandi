@@ -17,7 +17,7 @@ echo "The current registered IP address is: '$current_ip'"
 
 # If they do not match, change it (and keep the TTL and TYPE)
 if [[ "$my_ip" != "$current_ip" ]]; then
-  host_string="$GANDI_HOST $(echo $current_config | jq -r '.ttl') IN TYPE $(echo $current_config | jq -r '.type')"
+  host_string="$GANDI_HOST $(echo $current_config | jq '.ttl') IN TYPE $(echo $current_config | jq -r '.type')"
   echo "Updating the record with: '$host_string $my_ip'"
   gandi record update -r "$host_string $current_ip" --new-record "$host_string $my_ip"  $GANDI_DOMAIN 
 fi
