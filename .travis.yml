@@ -13,3 +13,7 @@ script:
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push napnap75/rpi-gandi:latest
+  - export CURRENTDATE=$(date +%y%m%d)
+  - docker tag napnap75/rpi-gandi:latest napnap75/rpi-gandi:$CURRENTDATE
+  - docker push napnap75/rpi-gandi:$CURRENTDATE
+  
