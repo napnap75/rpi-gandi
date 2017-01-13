@@ -15,7 +15,4 @@ This image contains :
 - [Gandi CLI](https://github.com/Gandi/gandi.cli) python scripts to manage the Gandi API.
 
 # Usage
-Use this image to update a DNS record to the current IP of the host:
-
-1. At first, init the image with `docker run -e GANDI_API_KEY="YOUR GANDI API KEY" -e GANDI_HOST="THIS HOST NAME IN THE GANDI DOMAIN" -e GANDI_DOMAIN="YOUR GANDI DOMAIN" --name gandi napnap75/rpi-gandi`
-2. Then, add in CRON, `docker start gandi`
+Use this image to update a DNS record to the current IP of the host: `docker run -e GANDI_API_KEY="YOUR GANDI API KEY" -e GANDI_HOST="THIS HOST NAME IN THE GANDI DOMAIN" -e GANDI_DOMAIN="YOUR GANDI DOMAIN" --name gandi napnap75/rpi-gandi`
