@@ -2,7 +2,7 @@ FROM napnap75/rpi-alpine-base:latest
 
 # Install dependencies
 RUN apk update \
-  && apk add python py-pip py-setuptools jq curl \
+  && apk add python py2-pip py-setuptools jq curl \
   && pip install gandi.cli \
   && apk del py-pip \
   && rm -rf /var/cache/apk/*
