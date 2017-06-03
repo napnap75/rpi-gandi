@@ -19,8 +19,6 @@ while true ; do
     echo "Updating $GANDI_HOST.$GANDI_DOMAIN record with IP $my_ip"
     host_string="$GANDI_HOST $(echo $current_record | jq '.ttl') $(echo $current_record | jq -r '.type')"
     gandi record update -r "$host_string $current_ip" --new-record "$host_string $my_ip" $GANDI_DOMAIN
-  else
-    echo "Not updating $GANDI_HOST.$GANDI_DOMAIN record with IP $my_ip"
   fi
 
   # Wait 5 minutes
