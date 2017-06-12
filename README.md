@@ -1,4 +1,3 @@
-# rpi-gandi
 Docker image to update Gandi DNS
 
 ![Gandi](https://www.gandi.net/apple-touch-icon-114x114.png)
@@ -15,4 +14,6 @@ This image contains :
 - [Gandi CLI](https://github.com/Gandi/gandi.cli) python scripts to manage the Gandi API.
 
 # Usage
-Use this image to update a DNS record to the current IP of the host: `docker run -e GANDI_API_KEY="YOUR GANDI API KEY" -e GANDI_HOST="THIS HOST NAME IN THE GANDI DOMAIN" -e GANDI_DOMAIN="YOUR GANDI DOMAIN" --name gandi napnap75/rpi-gandi`
+Use this image to update a DNS record to the current IP of the host: `docker run -e GANDI_API_KEY="YOUR GANDI API KEY" -e GANDI_HOST="THE HOST NAME IN THE GANDI DOMAIN" -e GANDI_DOMAIN="YOUR GANDI DOMAIN" --name gandi napnap75/rpi-gandi`
+
+Every 5 minutes, the image will automatically check the current IP address of the host and, if necessary, update the DNS.
